@@ -19,6 +19,10 @@ const router = createRouter({
       component: () => import ('../views/privacyView.vue')
     }
   ],
+
+  scrollBehavior(to, from, savePosition){
+    return {top: 0}
+  }
 })
 
 export default router
