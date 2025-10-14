@@ -6,18 +6,18 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/homeView.vue')
+      component: () => import('../views/trang-chu.vue')
     },
     {
-      path: '/about',
+      path: '/gioi-thieu',
       name: 'about',
-      component: () => import ('../views/aboutView.vue')
+      component: () => import ('../views/gioi-thieu.vue')
     },
     {
-      path: '/privacy',
+      path: '/quyen-rieng-tu',
       name: 'privacy',
-      component: () => import ('../views/privacyView.vue')
-    }
+      component: () => import ('../views/quyen-rieng-tu.vue')
+    },
   ],
 
   scrollBehavior(to, from, savePosition){

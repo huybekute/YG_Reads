@@ -6,8 +6,13 @@
     <div>
         <div class="flex no-underline justify-between items-center w-4/5 mx-auto py-2">
             <RouterLink to ="/"><img src="../assets/Logo.png" alt="YG Reads" class="w-1/4"></img></RouterLink>
-            <div class="flex gap-4 items-center">
-                <a href="" class="py-3 px-4 rounded-md bg-yellow-500 hover:bg-yellow-600 text-white"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng</a>
+            <div class="flex gap-5 items-center">
+                <div class="border border-gray-500 p-2">
+                    <form action="/search" method="get">
+                        <input type="text" placeholder="Tìm kiếm..." name="q" class="border-none outline-none"/>
+                        <button type="submit"><i class="fas fa-search cursor-pointer"></i></button>
+                    </form>
+                </div>
                 <div class="relative group">
                     <a href="" class="py-3 px-4 rounded-md bg-green-500 hover:bg-green-600 text-white"><i class="fa-solid fa-user"></i> Tài khoản</a>
                     <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white 

@@ -10,9 +10,9 @@ import { RouterLink } from 'vue-router';
             <div class="space-y-4">
                 <div class="flex flex-col space-y-2">
                     <h1 class="text-black font-bold">GIỚI THIỆU</h1>
-                    <RouterLink to = "/about" class="text-blue-600 hover:text-blue-700 hover:underline">Giới thiệu</RouterLink>
-                    <RouterLink to = "/privacy" class="text-blue-600 hover:text-blue-700 hover:underline">Quyền riêng tư</RouterLink>
-                    <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Điều khoản dịch vụ</a>
+                    <RouterLink to = "/gioi-thieu" class="text-blue-600 hover:text-blue-700 hover:underline">Giới thiệu</RouterLink>
+                    <RouterLink to = "/quyen-rieng-tu" class="text-blue-600 hover:text-blue-700 hover:underline">Quyền riêng tư</RouterLink>
+                    <RouterLink to= "/card" class="text-blue-600 hover:text-blue-700 hover:underline">Điều khoản dịch vụ</RouterLink>
                     <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Thông tin khuyến mại</a>
                 </div>
                 <div class="flex flex-col space-y-2">
