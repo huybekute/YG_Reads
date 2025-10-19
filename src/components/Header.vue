@@ -7,23 +7,23 @@
         <div class="flex no-underline justify-between items-center w-4/5 mx-auto py-2">
             <RouterLink to ="/"><img src="../assets/Logo.png" alt="YG Reads" class="w-1/4"></img></RouterLink>
             <div class="flex gap-5 items-center">
-                <div class="border border-gray-500 p-2">
+                <div class="border border-gray-500 p-2 rounded-md">
                     <form action="/search" method="get">
-                        <input type="text" placeholder="Tìm kiếm..." name="q" class="border-none outline-none"/>
+                        <input type="text" placeholder="Tìm kiếm..." name="q" class="border-none outline-none "/>
                         <button type="submit"><i class="fas fa-search cursor-pointer"></i></button>
                     </form>
                 </div>
                 <div class="relative group">
-                    <a href="" class="py-3 px-4 rounded-md bg-green-500 hover:bg-green-600 text-white"><i class="fa-solid fa-user"></i> Tài khoản</a>
+                    <RouterLink to="/tai-khoan" class="py-3 px-4 rounded-md bg-green-500 hover:bg-green-600 text-white"><i class="fa-solid fa-user"></i> Tài khoản</RouterLink>
                     <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white 
                     items-center shadow-lg w-40 rounded-md left-1/2 -translate-x-1/2 mt-2 z-10">
-                        <a href="" class="p-2 my-4 rounded-md w-4/5 text-center bg-yellow-300 hover:bg-yellow-400 text-white font-medium">Đăng nhập</a>
-                        <a href="" class="p-2 mb-2 rounded-md w-4/5 text-center bg-yellow-300 hover:bg-yellow-400 text-white font-medium">Đăng ký</a>
+                        <RouterLink to ="/dang-nhap" class="p-2 my-4 rounded-md w-4/5 text-center bg-yellow-300 hover:bg-yellow-400 text-white font-medium">Đăng nhập</RouterLink>
+                        <RouterLink to ="/dang-ky" class="p-2 mb-2 rounded-md w-4/5 text-center bg-yellow-300 hover:bg-yellow-400 text-white font-medium">Đăng ký</RouterLink>
                     </div>
                 </div>  
             </div>
         </div>
-        <div class="flex gap-15 mx-auto bg-gray-100 py-4 w-full justify-center menu-arrow">
+        <div class="flex gap-15 mx-auto bg-gray-200 py-4 w-full justify-center menu-arrow">
             <div class="relative group">
                 <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">VĂN HỌC</a>
                 <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white shadow-2xl w-max">

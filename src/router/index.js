@@ -6,18 +6,33 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/trang-chu.vue')
+      component: () => import('../views/home.vue')
     },
     {
       path: '/gioi-thieu',
       name: 'about',
-      component: () => import ('../views/gioi-thieu.vue')
+      component: () => import ('../views/about.vue')
     },
     {
       path: '/quyen-rieng-tu',
       name: 'privacy',
-      component: () => import ('../views/quyen-rieng-tu.vue')
+      component: () => import ('../views/privacy.vue')
     },
+    {
+      path: '/tai-khoan',
+      name: 'login',
+      component: () => import ('../views/account.vue')
+    },
+    {
+      path: '/dang-nhap',
+      name: 'dangnhap',
+      redirect: {path: '/tai-khoan', query: {tab: 'signin'}}
+    },
+    {
+      path: '/dang-ky',
+      name: 'dangky',
+      redirect: {path : '/tai-khoan', query: {tab: 'signup'}}
+    }
   ],
 
   scrollBehavior(to, from, savePosition){
