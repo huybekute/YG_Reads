@@ -1,5 +1,5 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, watch } from 'vue';
     import { useRoute } from 'vue-router';
     import { useRouter } from 'vue-router';
     import { watchEffect } from 'vue';
@@ -11,14 +11,94 @@
     const showPassSignin = ref(false);
     const showPassSignup = ref(false);
 
-    // activeTab.value = route.query.tab || 'signin'
     watchEffect(() => {
         activeTab.value = route.query.tab || 'signin';
     });
 
+    //set tab signin or signup
     function setTab(tab){
         activeTab.value = tab;
         router.replace({path: '/tai-khoan', query: {tab}});
+    }
+
+    //kiem tra mat khau cua form dang ky
+    const usernameSignup = ref('');
+    const passwordSignup = ref('');
+    const emailSignup = ref('');
+    const confirmPasswordSignup = ref('');
+    const passwordMatchError = ref(false);
+
+    function validatePassword() {
+        if(passwordSignup.value && confirmPasswordSignup.value){
+            passwordMatchError.value = (passwordSignup.value !== confirmPasswordSignup.value);
+            return !passwordMatchError.value;
+        }
+        return false;
+    }
+
+    //submit form dangky
+    async function submitFormSignup(){
+        if(validatePassword()){
+            //gui du lieu len sever
+            const userData = {
+                username : usernameSignup.value,
+                email : emailSignup.value,
+                password : passwordSignup.value,
+            };
+
+            try{
+                const res = await fetch('http://localhost:5000/api/auth', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type" : "application/json"
+                    },
+                    body: JSON.stringify(userData),
+                });
+                
+                if(res.ok){
+                    alert('Đăng ký thành công');
+                    router.push({
+                        path: '/'
+                    });
+                }
+                else{
+                    alert('Đăng ký thất bại');
+                }
+            }
+            catch(error){
+                alert('Lỗi đăng ký ' + error);
+            }
+        };
+    }
+
+    //dang nhap
+    const usernameSignin = ref('')
+    const passwordSignin = ref('')
+    async function submitFormSignin() {
+        const signinData = {
+            usernameLogin : usernameSignin.value,
+            passwordLogin : passwordSignin.value
+        }
+        try{
+            const res = await fetch('http://localhost:5000/api/auth/login', {
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json"},
+                body: JSON.stringify(signinData),
+            });
+            if(res.ok){
+                alert('Đăng nhập thành công');
+                router.push({
+                    path: '/'
+                });
+            }
+            else{
+                alert('Đăng nhập thất bại');
+            }
+        }
+        catch(error){
+            alert('Lỗi đăng nhập : ' + error);
+        }
     }
 </script>
 
@@ -32,18 +112,19 @@
                 activeTab === 'signup' ? 'active-tab' : '']">Đăng ký</button>
             </div> 
             <div class="mx-auto w-2/5">
-                <form v-if ="activeTab ==='signin'">
+                <form v-if ="activeTab ==='signin'" @submit.prevent="submitFormSignin">
                     <div class="flex flex-col gap-5">
                         <div class="flex flex-col gap-2">
                             <label for="usernameSignin"   class="text-gray-600">Tên đăng nhập/Email</label>
                             <input type="text" id="usernameSignin" class="px-4 py-2 border border-gray-300 rounded-sm" 
-                            placeholder="Nhập username hoặc email">
+                            placeholder="Nhập username hoặc email" required v-model="usernameSignin"/>
                         </div>
                         <div class="flex flex-col gap-2">
                             <div class="flex-col flex gap-2">
                                 <label for="passwordSignin" class="text-gray-600 gap-2">Mật khẩu</label>
                                 <input id="passwordSignin" class="px-4 py-2 border border-gray-300 rounded-sm" 
-                                placeholder="Nhập mật khẩu" :type="showPassSignin ? 'text' : 'password'" />
+                                placeholder="Nhập mật khẩu" :type="showPassSignin ? 'text' : 'password'" 
+                                v-model="passwordSignin" required/>
                             </div>
                             <div class="flex justify-between">
                                 <div class="flex gap-1">
@@ -59,25 +140,37 @@
                     </div> 
                 </form>
 
-                <form v-if="activeTab === 'signup'">
+                <form v-if="activeTab === 'signup'" @submit.prevent="submitFormSignup">
                     <div class="flex flex-col gap-5">
                         <div class="flex flex-col gap-2">
-                            <label for="usernameSignup" class="text-gray-600">Tên đăng nhập/Email</label>
+                            <label for="usernameSignup" class="text-gray-600">Tên đăng nhập</label>
                             <input type="text" id="usernameSignup" class="px-4 py-2 border border-gray-300 rounded-sm" 
-                            placeholder="Nhập username hoặc email">
+                            placeholder="Nhập username" v-model="usernameSignup" required/>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="emailSignup" class="text-gray-600">Email</label>
+                            <input type="email" id="emailSignup" class="px-4 py-2 border border-gray-300 rounded-sm" 
+                            placeholder="Nhập email" v-model="emailSignup" required/>
                         </div>
                         <div class="flex flex-col gap-2">
                             <div class="flex-col flex gap-2">
                                 <label for="passwordSignup" class="text-gray-600 gap-2">Mật khẩu</label>
-                                <input id="passwordSignup" class="px-4 py-2 border border-gray-300 rounded-sm" 
-                                :type="showPassSignup ? 'text' : 'password'" placeholder="Nhập mật khẩu"/>
+                                <input id="passwordSignup" :class="['px-4 py-2 border rounded-sm',
+                                passwordMatchError ? 'border-red-500' : 'border-gray-300']" 
+                                :type="showPassSignup ? 'text' : 'password'" placeholder="Nhập mật khẩu" 
+                                v-model="passwordSignup" required @input="validatePassword"/>
                             </div>
                         </div>
                         <div class="flex flex-col gap-2">
                             <div class="flex-col flex gap-2">
                                 <label for="passwordSignup2" class="text-gray-600 gap-2">Nhập lại mật khẩu</label>
-                                <input id="passwordSignup2" class="px-4 py-2 border border-gray-300 rounded-sm" 
-                                :type="showPassSignup ? 'text' : 'password'" placeholder="Nhập lại mật khẩu"/>
+                                <input id="passwordSignup2" :class="['px-4 py-2 border rounded-sm', 
+                                passwordMatchError ? 'border-red-500' : 'border-gray-300']" 
+                                :type="showPassSignup ? 'text' : 'password'" placeholder="Nhập lại mật khẩu" 
+                                v-model="confirmPasswordSignup" required @input="validatePassword"/>
+                            </div>
+                            <div v-if="passwordMatchError">
+                                <p class="text-red-500 text-sm">Mật khẩu không trùng khớp</p>
                             </div>
                             <div class="flex gap-1">
                                 <input type="checkbox" id="checkboxSignup" v-model="showPassSignup"/>
@@ -99,6 +192,7 @@
         </div>
     </div>
 </template>
+
 <style scoped>
 
 /*hieu ung gach chan*/
@@ -106,6 +200,7 @@
     position: relative;
     display: inline-block;
     text-decoration: none;
+    z-index: 0;
 }
 
 .underline-from-center::after {

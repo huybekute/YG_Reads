@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <div class="relative group">
+            <div class="relative group z-10">
                 <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">NGOẠI NGỮ</a>
                 <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white shadow-2xl w-max">
                     <a href="" class="p-2 hover:bg-gray-100">Tiếng Anh</a>
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="relative group">
+            <div class="relative group z-10">
                 <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">TIỂU SỬ</a>
                 <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white shadow-2xl w-max">
                     <a href="" class="p-2 hover:bg-gray-100">Câu Chuyện Cuộc Đời</a>
@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <div class="relative group">
+            <div class="relative group z-10">
                 <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">TÂM LÝ</a>
                 <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white shadow-2xl w-max">
                     <a href="" class="p-2 hover:bg-gray-100">Tâm Lý</a>

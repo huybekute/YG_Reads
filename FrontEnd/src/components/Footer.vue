@@ -12,14 +12,15 @@ import { RouterLink } from 'vue-router';
                     <h1 class="text-black font-bold">GIỚI THIỆU</h1>
                     <RouterLink to = "/gioi-thieu" class="text-blue-600 hover:text-blue-700 hover:underline">Giới thiệu</RouterLink>
                     <RouterLink to = "/quyen-rieng-tu" class="text-blue-600 hover:text-blue-700 hover:underline">Quyền riêng tư</RouterLink>
-                    <RouterLink to= "/card" class="text-blue-600 hover:text-blue-700 hover:underline">Điều khoản dịch vụ</RouterLink>
+                    <RouterLink to= "/dieu-khoan-dich-vu" class="text-blue-600 hover:text-blue-700 hover:underline">Điều khoản dịch vụ</RouterLink>
                     <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Thông tin khuyến mại</a>
                 </div>
                 <div class="flex flex-col space-y-2">
                     <h1 class="font-bold">CHÍNH SÁCH BÁN HÀNG</h1>
                     <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Chính sách vận chuyển</a>
                     <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Chính sách bảo hành</a>
-                    <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Chính sách đổi trả và hoàn tiền</a>
+                    <RouterLink to ="/chinh-sach-doi-tra-va-hoan-tien" class="text-blue-600 hover:text-blue-700 
+                    hover:underline">Chính sách đổi trả và hoàn tiền</RouterLink>
                     <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Phương thức thanh toán</a>
                 </div>
             </div>
@@ -35,7 +36,8 @@ import { RouterLink } from 'vue-router';
             </div>
             <div class="flex flex-col space-y-2">
                 <h1 class="font-bold">LIÊN HỆ</h1>
-                <a href="https://www.facebook.com/KingYG1804/" class="text-blue-600 hover:text-blue-700 hover:underline">Facebook: Nguyễn Huy</a>
+                <a href="https://www.facebook.com/KingYG1804/" class="text-blue-600 hover:text-blue-700 hover:underline"
+                target="_blank">Facebook: Nguyễn Huy</a>
                 <p>SĐT: 0393244131</p>
                 <p>Email: huynguyen.2764@gmail.com</p>
                 <p>Thời gian làm việc: 08h-22h</p>

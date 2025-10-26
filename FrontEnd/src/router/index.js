@@ -19,6 +19,16 @@ const router = createRouter({
       component: () => import ('../views/privacy.vue')
     },
     {
+      path:'/dieu-khoan-dich-vu',
+      name: 'term-of-services',
+      component: () => import ('../views/term-of-service.vue')
+    },
+    {
+      path: '/chinh-sach-doi-tra-va-hoan-tien',
+      name: 'return-and-refund',
+      component: () => import ('../views/return-and-refund.vue')
+    },
+    {
       path: '/tai-khoan',
       name: 'login',
       component: () => import ('../views/account.vue')
