@@ -1,11 +1,13 @@
-<script setup lang="ts">
-import { RouterLink } from 'vue-router';
-
+<script setup>
+    import { computed } from 'vue';
+    import { useRoute } from 'vue-router';
+    const route = useRoute();
+    const showFooter = computed(() => route.path !== '/admin')
 </script>
 
 <template>
-    <div class="border-t border-gray-200 mb-8"></div>
-    <div class="w-4/5 mx-auto py-10">
+    <div class="border-t border-gray-200 mb-8" v-if="showFooter"></div>
+    <div class="w-4/5 mx-auto py-10" v-if="showFooter">
         <div class="flex justify-center gap-20">
             <div class="space-y-4">
                 <div class="flex flex-col space-y-2">

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,11 +43,42 @@ const router = createRouter({
       path: '/dang-ky',
       name: 'dangky',
       redirect: {path : '/tai-khoan', query: {tab: 'signup'}}
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/admin/admin.vue'),
+      meta: {
+        requiresAdmin: true
+      }
+    },
+    {
+      path: '/thong-tin-tai-khoan',
+      name: 'profile',
+      component: () => import('../views/profile.vue')
     }
   ],
 
   scrollBehavior(to, from, savePosition){
     return {top: 0}
+  }
+
+})
+
+//chi co admin dc phep truy cap /admin
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  if(to.meta.requiresAdmin){
+    if(authStore.isLogin && authStore.userRole === 'admin'){
+      next();
+    }
+    else{
+      alert('Bạn không có quyền truy cập trang này');
+      next('/');
+    }
+  }
+  else{
+    next()
   }
 })
 

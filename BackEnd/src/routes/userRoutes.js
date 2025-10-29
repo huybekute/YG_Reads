@@ -32,6 +32,8 @@ router.post('/', async(req, res) => {
     }
 });
 
+
+//dang nahp
 router.post('/login', async(req, res) => {
     const {usernameLogin, passwordLogin} = req.body;
     try{
@@ -74,6 +76,34 @@ router.post('/login', async(req, res) => {
         });
     }
 });
+
+
+// lay thong tin user
+router.get('/:username', async (req, res) => {
+    try{
+        const user = await User.findOne({username : req.params.username});
+        if(!user){
+            return res.status(404).json({
+                message : "Không tìm thấy user"
+            });
+        }
+        const infoUser = {
+            username : user.username,
+            email: user.email,
+            fullName: user.fullName,
+            phone: user.phone,
+            address: user.address,
+            createdAt: user.createdAt,
+        }
+
+        res.json(infoUser);
+    }
+    catch(error){
+        res.status(500).json({
+            message: error.message
+        });
+    }
+})
 
 
 router.get('/', (req, res) => {

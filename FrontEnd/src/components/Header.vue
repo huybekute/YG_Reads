@@ -1,5 +1,22 @@
 <script setup>
+    import { useRoute } from 'vue-router';
+    import { computed } from 'vue';   
+    import { useAuthStore } from '@/stores/authStore';
+    import { useRouter } from 'vue-router';
 
+    const route = useRoute();
+    const router = useRouter();
+    const showHeader = computed(() => route.path !== '/admin')
+
+    const authStore = useAuthStore();
+
+    function dangXuat(){
+        authStore.setLogoutState();
+        router.push({
+            path: '/'
+        })
+    }
+    
 </script>
 
 <template>
@@ -7,23 +24,39 @@
         <div class="flex no-underline justify-between items-center w-4/5 mx-auto py-2">
             <RouterLink to ="/"><img src="../assets/Logo.png" alt="YG Reads" class="w-1/4"></img></RouterLink>
             <div class="flex gap-5 items-center">
-                <div class="border border-gray-500 p-2 rounded-md">
-                    <form action="/search" method="get">
+                <div class="border border-gray-500 p-2 rounded-md" v-if="showHeader">
+                    <form action="/search" method="get" class="w-full flex">
                         <input type="text" placeholder="Tìm kiếm..." name="q" class="border-none outline-none "/>
                         <button type="submit"><i class="fas fa-search cursor-pointer"></i></button>
                     </form>
                 </div>
                 <div class="relative group">
-                    <RouterLink to="/tai-khoan" class="py-3 px-4 rounded-md bg-green-500 hover:bg-green-600 text-white"><i class="fa-solid fa-user"></i> Tài khoản</RouterLink>
+                    <RouterLink to="/tai-khoan" class="py-3 px-4 rounded-md bg-green-500 hover:bg-green-600 text-white">
+                    <span v-if="authStore.isLogin">{{ authStore.username }}</span> 
+                    <span v-else><i class="fa-solid fa-user pr-1"></i> Tài khoản</span> </RouterLink>
                     <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white 
-                    items-center shadow-lg w-40 rounded-md left-1/2 -translate-x-1/2 mt-2 z-10">
-                        <RouterLink to ="/dang-nhap" class="p-2 my-4 rounded-md w-4/5 text-center bg-yellow-300 hover:bg-yellow-400 text-white font-medium">Đăng nhập</RouterLink>
-                        <RouterLink to ="/dang-ky" class="p-2 mb-2 rounded-md w-4/5 text-center bg-yellow-300 hover:bg-yellow-400 text-white font-medium">Đăng ký</RouterLink>
+                    items-center shadow-lg w-60 rounded-md left-1/2 -translate-x-1/2 mt-2 z-10">
+                        <RouterLink to ="/dang-nhap" class="p-2 my-4 rounded-md w-4/5 text-center bg-blue-600 
+                        hover:bg-blue-700 text-white font-medium" v-if="!authStore.isLogin">Đăng nhập</RouterLink>
+                        <RouterLink to ="/dang-ky" class="p-2 mb-4 rounded-md w-4/5 text-center bg-blue-600 
+                        hover:bg-blue-700 text-white font-medium" v-if="!authStore.isLogin">Đăng ký</RouterLink>
+                        <RouterLink to ="/thong-tin-tai-khoan" class="p-2 my-4 rounded-md w-4/5 text-center bg-blue-600 
+                        hover:bg-blue-700 text-white font-medium" v-if="authStore.isLogin">Thông tin tài khoản</RouterLink>
+                        <RouterLink to ="/admin" class="p-2 mb-4 rounded-md w-4/5 text-center bg-blue-600 
+                        hover:bg-blue-700 text-white font-medium" 
+                        v-if="authStore.isLogin && authStore.userRole === 'admin'">Bảng điều khiển</RouterLink>
+                        <RouterLink to ="" class="p-2 mb-4 rounded-md w-4/5 text-center bg-blue-600 
+                        hover:bg-blue-700 text-white font-medium" 
+                        v-if="authStore.isLogin && authStore.userRole === 'user'">
+                        <i class="fa-solid fa-cart-shopping pr-1"></i> Giỏ hàng</RouterLink>
+                        <button class="p-2 mb-4 rounded-md w-4/5 text-center bg-blue-600 
+                        hover:bg-blue-700 text-white font-medium" v-if="authStore.isLogin" 
+                        @click="dangXuat">Đăng xuất</button>
                     </div>
                 </div>  
             </div>
         </div>
-        <div class="flex gap-15 mx-auto bg-gray-200 py-4 w-full justify-center menu-arrow">
+        <div class="flex gap-15 mx-auto bg-gray-200 py-4 w-full justify-center menu-arrow" v-if="showHeader">
             <div class="relative group">
                 <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">VĂN HỌC</a>
                 <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white shadow-2xl w-max">
@@ -102,6 +135,7 @@
             <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">KHÁC</a>
         </div>
     </div>
+    <div class="border-t border-gray-200" v-if="authStore.userRole === 'admin'"></div>
 </template>
 
 

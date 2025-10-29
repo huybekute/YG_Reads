@@ -1,11 +1,14 @@
 <script setup>
-    import { ref, watch } from 'vue';
+    import { onMounted, ref, watch } from 'vue';
     import { useRoute } from 'vue-router';
     import { useRouter } from 'vue-router';
     import { watchEffect } from 'vue';
+    import { useAuthStore } from '@/stores/authStore';
+    
 
     const route = useRoute();
     const router = useRouter();
+    const authStore = useAuthStore();
 
     const activeTab = ref('signin');
     const showPassSignin = ref(false);
@@ -27,13 +30,33 @@
     const emailSignup = ref('');
     const confirmPasswordSignup = ref('');
     const passwordMatchError = ref(false);
+    const passwordLengthError = ref(false);
 
     function validatePassword() {
+
+        // mk it nhat 8 ky tu
+        const minLength = 8;
+        let isVal = true;
+        if(passwordLengthError.value = passwordSignup.value.length > 0 && passwordSignup.value.length < minLength){
+            passwordLengthError.value = true;
+            isVal = false;
+        }
+        else{
+            passwordLengthError.value = false;
+        }
+
+
+        // kiem tra trung khop mk
         if(passwordSignup.value && confirmPasswordSignup.value){
             passwordMatchError.value = (passwordSignup.value !== confirmPasswordSignup.value);
-            return !passwordMatchError.value;
+            if(passwordMatchError.value){
+                isVal = false;
+            }
         }
-        return false;
+        else if(passwordLengthError.value){
+            passwordMatchError.value = false;
+        }
+        return isVal;
     }
 
     //submit form dangky
@@ -56,10 +79,10 @@
                 });
                 
                 if(res.ok){
-                    alert('Đăng ký thành công');
+                    await autoLogin();
                     router.push({
                         path: '/'
-                    });
+                    })
                 }
                 else{
                     alert('Đăng ký thất bại');
@@ -71,6 +94,30 @@
         };
     }
 
+    //tu dong dang nhap sau khi dang ky
+    async function autoLogin(){
+        const signinData = {
+            usernameLogin : usernameSignup.value,
+            passwordLogin : passwordSignup.value
+        }
+
+        try{
+            const res = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    "Content-Type" : "application/json",
+                },
+                body:JSON.stringify(signinData),
+            });
+            if(res.ok){
+                const dataSignin = await res.json();
+                authStore.setLoginState(dataSignin.user.role, dataSignin.user.username);
+            }
+        }
+        catch(error){
+            console.log("Lỗi không xác định")
+        }
+    }
     //dang nhap
     const usernameSignin = ref('')
     const passwordSignin = ref('')
@@ -87,10 +134,19 @@
                 body: JSON.stringify(signinData),
             });
             if(res.ok){
-                alert('Đăng nhập thành công');
-                router.push({
-                    path: '/'
-                });
+                const dataSignin = await res.json();
+                authStore.setLoginState(dataSignin.user.role, dataSignin.user.username);
+                // console.log(dataSignin) 
+                if(dataSignin.user.role === 'admin'){
+                    router.push({
+                        path: '/admin'
+                    });
+                }
+                else{
+                    router.push({
+                        path: '/'
+                    });
+                }
             }
             else{
                 alert('Đăng nhập thất bại');
@@ -100,6 +156,21 @@
             alert('Lỗi đăng nhập : ' + error);
         }
     }
+
+    //neu da dang nhap ko truy cap trag tai khoan nx
+    function blockAccessIfLoggedIn(){
+        if(authStore.isLogin){
+            router.replace({
+                path: '/'
+            })
+        }
+    }
+
+    onMounted(() => {
+        blockAccessIfLoggedIn();
+    })
+
+    
 </script>
 
 <template> 
@@ -159,6 +230,9 @@
                                 passwordMatchError ? 'border-red-500' : 'border-gray-300']" 
                                 :type="showPassSignup ? 'text' : 'password'" placeholder="Nhập mật khẩu" 
                                 v-model="passwordSignup" required @input="validatePassword"/>
+                            </div>
+                            <div v-if="passwordLengthError">
+                                <p class="text-sm text-red-500">Mật khẩu phải có ít nhất 8 ký tự</p>
                             </div>
                         </div>
                         <div class="flex flex-col gap-2">

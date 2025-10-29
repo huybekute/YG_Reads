@@ -5,13 +5,24 @@
 <template>
     <div class="bg-gray-100 py-20">
         <div class="flex w-4/5 mx-auto gap-5">
-            <div class="w-2/5 bg-white rounded-xl">
+            <div class="w-2/5 bg-white rounded-xl sticky top-5 h-fit">
                 <div class="">
                     <img src="../../public/product/TieuThuyet/01_MuaDo.webp" class="w-3/5 mx-auto p-5">
                 </div>
                 <div class="flex justify-center mx-auto px-4 py-2 gap-5">
                     <a href="" class="border-2 rounded-md border-red-700 text-red-700 w-1/2 text-center py-3 font-bold"><i class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ hàng</a>
                     <a href="" class="bg-red-700 rounded-md text-white w-1/2 text-center py-3 font-bold">Mua ngay</a>
+                </div>
+                <div class="flex flex-col px-4 gap-5 py-5">
+                    <h1 class="font-bold">Chính sách ưu đãi của YG Reads</h1>
+                    <div class="flex justify-between">
+                        <a href="" class="text-sm"><span class="font-bold "><i class="fa-solid fa-truck-fast"></i> 
+                            Thời gian giao hàng: </span> Giao nhanh và uy tín</a>
+                    </div>
+                    <div class="flex justify-between">
+                        <a href="" class="text-sm"><span class="font-bold "><i class="fa-solid fa-box-open"></i> 
+                            Chính sách đổi trả: </span> Đổi trả miễn phí toàn quốc</a>
+                    </div>
                 </div>
             </div>
             <div class="w-3/5 space-y-2">
