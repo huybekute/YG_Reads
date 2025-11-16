@@ -3,8 +3,10 @@
     import { onMounted } from 'vue';
     import axios from 'axios';
     import { useRoute } from 'vue-router';
+    import { useRouter } from 'vue-router';
     
     const route = useRoute();
+    const router = useRouter();
     const user = ref({});
     const username = localStorage.getItem('username');
     

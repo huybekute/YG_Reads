@@ -36,7 +36,7 @@ router.post('/', async(req, res) => {
 });
 
 // remove sach
-router.delete('/:id', async(req, res) => {
+router.delete('/:bookID', async(req, res) => {
     try{
         const deleteSach = await Book.findOneAndDelete(
             {BookID: req.params.id}
@@ -59,7 +59,7 @@ router.delete('/:id', async(req, res) => {
 });
 
 //lay chi tiet sach
-router.get('/:id', async(req, res) => {
+router.get('/:bookID', async(req, res) => {
     try{
         const sach = await Book.findOne({
             BookID: req.params.id
@@ -79,7 +79,7 @@ router.get('/:id', async(req, res) => {
 });
 
 //cap nhat sach
-router.put('/:id', async(req, res) => {
+router.put('/:bookID', async(req, res) => {
     try{
         const updateSach = await Book.findOneAndUpdate(
             {BookID: req.params.id},

@@ -1,6 +1,7 @@
 <script setup>
+    import BookDetails from '@/components/BookDetails.vue';
 
 </script>
 <template>
-    Day la Home
+    <BookDetails/>
 </template>

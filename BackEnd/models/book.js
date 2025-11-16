@@ -50,7 +50,7 @@ const bookSchema = new mongoose.Schema({
     },
     //tac gia
     author: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
         ref: "Author",
         required: true
     },
@@ -76,6 +76,17 @@ const bookSchema = new mongoose.Schema({
 {
     timestamps: true
 });
+
+
+bookSchema.virtual('authorInfo', {
+  ref: 'Author',             
+  localField: 'author',     
+  foreignField: 'authorID',   
+  justOne: true           
+});
+
+bookSchema.set('toObject', { virtuals: true });
+bookSchema.set('toJSON', { virtuals: true });
 
 const Book = mongoose.model('Book', bookSchema);
 export default Book;

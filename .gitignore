@@ -21,6 +21,7 @@ coverage
 .vscode/*
 **/.vscode/*
 !.vscode/extensions.json
+**/!.vscode/extensions.json
 .idea
 **/.idea/
 *.suo
