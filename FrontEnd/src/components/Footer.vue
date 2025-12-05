@@ -19,8 +19,8 @@
                 </div>
                 <div class="flex flex-col space-y-2">
                     <h1 class="font-bold">CHÍNH SÁCH BÁN HÀNG</h1>
-                    <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Chính sách vận chuyển</a>
-                    <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Chính sách bảo hành</a>
+                    <RouterLink to ="/chinh-sach-van-chuyen" class="text-blue-600 hover:text-blue-700 hover:underline">Chính sách vận chuyển</RouterLink>
+                    <RouterLink to ="/chinh-sach-bao-hanh" class="text-blue-600 hover:text-blue-700 hover:underline">Chính sách bảo hành</RouterLink>
                     <RouterLink to ="/chinh-sach-doi-tra-va-hoan-tien" class="text-blue-600 hover:text-blue-700 
                     hover:underline">Chính sách đổi trả và hoàn tiền</RouterLink>
                     <a href="" class="text-blue-600 hover:text-blue-700 hover:underline">Phương thức thanh toán</a>

@@ -139,7 +139,7 @@
                 // console.log(dataSignin) 
                 if(dataSignin.user.role === 'admin'){
                     router.push({
-                        path: '/admin'
+                        path: '/admin/dashboard'
                     });
                 }
                 else{

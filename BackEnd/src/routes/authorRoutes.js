@@ -19,6 +19,9 @@ router.get('/', async(req, res) => {
 //them tac gia
 router.post('/', async (req, res) => {
     try{
+        if (!req.body.authorID || !req.body.name) {
+            return res.status(400).json({ message: "authorID và name là bắt buộc" });
+        }
         const newTacGia = await Author.create(req.body);
         res.status(201).json(newTacGia);
     }

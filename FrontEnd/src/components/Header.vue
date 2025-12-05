@@ -6,7 +6,7 @@
 
     const route = useRoute();
     const router = useRouter();
-    const showHeader = computed(() => route.path !== '/admin')
+    const showHeader = computed(() => !route.path.startsWith('/admin'))
 
     const authStore = useAuthStore();
 
@@ -42,7 +42,7 @@
                         hover:bg-blue-700 text-white font-medium" v-if="!authStore.isLogin">Đăng ký</RouterLink>
                         <RouterLink to ="/thong-tin-tai-khoan" class="p-2 my-4 rounded-md w-4/5 text-center bg-blue-600 
                         hover:bg-blue-700 text-white font-medium" v-if="authStore.isLogin">Thông tin tài khoản</RouterLink>
-                        <RouterLink to ="/admin" class="p-2 mb-4 rounded-md w-4/5 text-center bg-blue-600 
+                        <RouterLink to ="/admin/dashboard" class="p-2 mb-4 rounded-md w-4/5 text-center bg-blue-600 
                         hover:bg-blue-700 text-white font-medium" 
                         v-if="authStore.isLogin && authStore.userRole === 'admin'">Bảng điều khiển</RouterLink>
                         <RouterLink to ="" class="p-2 mb-4 rounded-md w-4/5 text-center bg-blue-600 
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="flex gap-15 mx-auto bg-gray-200 py-4 w-full justify-center menu-arrow" v-if="showHeader">
-            <div class="relative group">
+            <div class="relative group z-10">
                 <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">VĂN HỌC</a>
                 <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white shadow-2xl w-max">
                     <a href="" class="p-2 hover:bg-gray-100">Tiểu Thuyết</a>
@@ -68,7 +68,7 @@
                     <a href="" class="p-2 hover:bg-gray-100">Du Ký</a>
                 </div>
             </div>
-            <div class="realative group">
+            <div class="realative group z-10">
                 <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">KINH TẾ</a> 
                 <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white shadow-2xl w-max">
                     <a href="" class="p-2 hover:bg-gray-100">Quản Trị - Lãnh Đạo</a>
@@ -80,7 +80,7 @@
                     <a href="" class="p-2 hover:bg-gray-100">Bài Học Kinh Doanh</a>
                 </div>
             </div>
-            <div class="relative group">
+            <div class="relative group z-10">
                 <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">THIẾU NHI</a>
                 <div class="absolute flex-col hidden group-hover:flex group-hover:flex-col bg-white shadow-2xl w-max">
                     <a href="" class="p-2 hover:bg-gray-100">Truyện Thiếu Nhi</a>
@@ -135,7 +135,7 @@
             <a href="" class="hover:text-green-700 underline-offset-2 text-black underline-from-center">KHÁC</a>
         </div>
     </div>
-    <div class="border-t border-gray-200" v-if="authStore.userRole === 'admin'"></div>
+    <div class="border-t border-gray-300" v-if="authStore.userRole === 'admin'"></div>
 </template>
 
 

@@ -7,7 +7,8 @@ const router = express.Router();
 //lay tat ca cac sach
 router.get('/', async(req, res) => {
     try{
-        const sach = await Book.find();
+        const sach = await Book.find()
+            
         //200: OK
         res.status(200).json(sach);
     }
@@ -63,7 +64,11 @@ router.get('/:bookID', async(req, res) => {
     try{
         const sach = await Book.findOne({
             BookID: req.params.id
-        });
+        })
+            .populate("category")
+            .populate("author")
+            .populate("publishing")
+            .populate("supplier");
         if(!sach){
             return res.status(404).json({
                 message: "Khong tim thay sach voi ID nay"
@@ -82,7 +87,7 @@ router.get('/:bookID', async(req, res) => {
 router.put('/:bookID', async(req, res) => {
     try{
         const updateSach = await Book.findOneAndUpdate(
-            {BookID: req.params.id},
+            {BookID: req.params.bookID},
             req.body,
             {new: true, runValidators: true}
         );

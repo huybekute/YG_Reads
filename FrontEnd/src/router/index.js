@@ -30,6 +30,16 @@ const router = createRouter({
       component: () => import ('../views/return-and-refund.vue')
     },
     {
+      path: '/chinh-sach-van-chuyen',
+      name: 'shiping-policy',
+      component: () => import ('../views/shipping-policy.vue')
+    },
+    {
+      path:'/chinh-sach-bao-hanh',
+      name: 'guarantee-policy',
+      component: () => import('../views/guarantee-policy.vue')
+    },
+    {
       path: '/tai-khoan',
       name: 'login',
       component: () => import ('../views/account.vue')
@@ -50,7 +60,33 @@ const router = createRouter({
       component: () => import('../views/admin/admin.vue'),
       meta: {
         requiresAdmin: true
-      }
+      },
+      children: [
+        {
+          path: '',
+          redirect: 'dashboard'
+        },
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          component: () => import('../views/admin/dashboard.vue')
+        },
+        {
+          path: 'user-management',
+          name: 'usermanagement',
+          component: () => import('../views/admin/user-management.vue')
+        },
+        {
+          path: 'content-management',
+          name: 'content-management',
+          component: () => import('../views/admin/content-management.vue')
+        },
+        {
+          path: 'order-management',
+          name: 'order-management',
+          component: () => import('../views/admin/order-management.vue')
+        }
+      ]
     },
     {
       path: '/thong-tin-tai-khoan',

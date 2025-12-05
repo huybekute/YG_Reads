@@ -12,7 +12,9 @@ const publishingSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-    }
+    },
+
+    description: String
 
 });
 
